@@ -28,6 +28,7 @@
 void setScopeChannel(uint8_t ch, int16_t val);
 void consoleScope(void);
 void consoleLog(char *message);
+int _write(int fd, char *ptr, int len); ///< Function to retarget printf to UART
 
 #endif
 

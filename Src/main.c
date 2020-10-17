@@ -464,7 +464,8 @@ int main(void) {
     poweroffPressCheck();
 
     // ####### BEEP AND EMERGENCY POWEROFF #######
-    if ((TEMP_POWEROFF_ENABLE && board_temp_deg_c >= TEMP_POWEROFF && speedAvgAbs < 20) || (batVoltage < BAT_DEAD && speedAvgAbs < 20)) {  // poweroff before mainboard burns OR low bat 3
+    if ((TEMP_POWEROFF_ENABLE && board_temp_deg_c >= TEMP_POWEROFF && speedAvgAbs < 20) /*|| (batVoltage < BAT_DEAD && speedAvgAbs < 20)*/) {  // poweroff before mainboard burns OR low bat 3
+      printf("batVoltage: %i speedAvgAbs: %i board_temp_deg_c: %i\n", batVoltage, speedAvgAbs, board_temp_deg_c);
       poweroff();
     } else if (rtY_Left.z_errCode || rtY_Right.z_errCode) {     // disable motors and beep in case of Motor error - fast beep
       enable        = 0;
@@ -491,6 +492,9 @@ int main(void) {
       buzzerPattern = 0;
       backwardDrive = 0;
     }
+
+    // Print the buzzer pattern state to understand what current beeping means 
+    printf("buzzerFreq: %i buzzerPattern: %i\n", buzzerFreq, buzzerPattern);
 
 
     // ####### INACTIVITY TIMEOUT #######

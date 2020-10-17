@@ -79,3 +79,12 @@ void consoleLog(char *message)
     #endif
   #endif
 }
+
+int _write(int fd, char* ptr, int len) {
+
+  if(__HAL_DMA_GET_COUNTER(huart3.hdmatx) == 0) {
+  HAL_UART_Transmit_DMA(&huart3, (uint8_t *)ptr, len);
+  return len;	 
+  }
+  return -1;
+}
